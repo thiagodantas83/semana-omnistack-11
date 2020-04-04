@@ -61,11 +61,16 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
   },
 
+  scroll: {
+    height:10
+  },
+  
+
   action: {
     backgroundColor: '#e02041',
     borderRadius: 8,
     height: 50,
-    width: '48%',
+    width:'100%',
     justifyContent: 'center',
     alignItems: 'center'
   },
@@ -73,6 +78,7 @@ export default StyleSheet.create({
   actionText: {
     color: '#FFF',
     fontSize: 15,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+   
   },
 });
