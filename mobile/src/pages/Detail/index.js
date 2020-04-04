@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Feather } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { View, Text, Image, TouchableOpacity, Linking, TextInput } from 'react-native';
@@ -8,12 +8,15 @@ import logoImg from '../../assets/logo.png';
 
 import styles from './styles';
 import { ScrollView } from 'react-native-gesture-handler';
+import { Component } from 'react';
 
 export default function Detail() {
 
 
   const navigation = useNavigation();
   const route = useRoute();
+  const [text, setText] = useState('');
+  const [textValor, setTextValor] = useState('');
 
   const incident = route.params.incident;
   const message = `Olá ${incident.name}, estou entrando em contato pois gostaria de ajudar no caso "${incident.title}" com o valor de ${Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(incident.value)}`;
@@ -43,8 +46,23 @@ export default function Detail() {
   }
 
   function doarOutroValor() {
-    alert('teste');
+    var valida = true;
+    if(text == ''){
+      alert('informe o nome');
+      valida = false;
+    }
+    else if(textValor == '') {
+      alert('informe o valor');
+      valida = false;
+    }
+
+    if(valida){
+      alert('Nome do Doador: '+ text+'\n Novo valor:'+textValor);
+      
+
+    }
   }
+
 
   return (
     <View style={styles.container}>
@@ -55,8 +73,8 @@ export default function Detail() {
           <Feather name="arrow-left" size={28} color="#E82041" />
         </TouchableOpacity>
       </View>
-      <ScrollView styles={styles.scroll}>
-        <View style={styles.incident}>
+      <ScrollView>
+        <View style={styles.incident, styles.scroll}>
           <Text style={[styles.incidentProperty, { marginTop: 0 }]}>ONG:</Text>
           <Text style={styles.incidentValue}>{incident.name} de {incident.city}/{incident.uf}</Text>
 
@@ -77,11 +95,18 @@ export default function Detail() {
             }).format(incident.value)}
           </Text>
 
-          {/* <Text onPress={doarOutroValor}>Doar outro valor</Text>
-
           <View>
-              <TextInput value='Digite o novo valor' style={{height: 40, borderColor: 'gray', borderWidth: 1}}/>
-          </View> */}
+            <Text onPress={doarOutroValor}>Doar outro valor</Text>
+          </View>
+          <View>
+            <TextInput placeholder='Digite seu nome' value={text} onChangeText={text => setText(text)} style={{ height: 40, borderColor: 'gray', borderWidth: 1 }} />
+            <TextInput placeholder='Digite o valor' value={textValor} onChangeText={textValor => setTextValor(textValor)} style={{ height: 40, borderColor: 'gray', borderWidth: 1 }} />
+            <View style={styles.actions}>
+              <TouchableOpacity style={styles.action} onPress={doarOutroValor}>
+                <Text style={styles.actionText}>Doar outro valor</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
         </View>
       </ScrollView>
 

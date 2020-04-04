@@ -62,9 +62,9 @@ export default StyleSheet.create({
   },
 
   scroll: {
-    height:10
+    height:1000
   },
-  
+
 
   action: {
     backgroundColor: '#e02041',
